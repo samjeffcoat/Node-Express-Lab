@@ -33,6 +33,8 @@ router.post("/", async (req, res) => {
     }
 })
 
+// Searches for item and then returns that item by id if it is found. It worked originally without the post.length, however if I got above 160 then it didnt work 
+
 router.get("/:id", async (req, res) => {
     try{
         const post = await db.findById(req.params.id);
@@ -48,6 +50,22 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+
+/// Deletes id as long as its greater than 0
+
+router.delete("/:id", async (req, res) => {
+    try{
+        const count = await db.remove(req.params.id);
+        if (count > 0) {
+            res.status(200).json({message: "The post has been nuked"});
+        } else {
+            res.status(404).json({message: 'The post could not be found'});
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Error removing the post', });
+    }
+});
 
 
 
