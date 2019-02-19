@@ -2,18 +2,16 @@ const express = require('express');
 const db = require('../data/db');
 const router= express.Router();
 
-router.get("/", (req, res) => {
-    res.send('hello sam')
-})
 
 
-router.get('/api/posts', (req, res) => {
 
-    db.find()
-        .then(posts => {
-            res.status(200).json(posts);
-        })
-    res.status(200).jspm(posts);
+router.get('/',  async (req, res) => {
+ try{
+    let posts = await db.find();
+    res.status(200).json(posts);
+} catch (error) {
+    res.status(500).json({error: "The posts information could not be retrieved."});
+}
 })
 
 /// POST	/api/posts	Creates a post using the information sent inside the request body.
