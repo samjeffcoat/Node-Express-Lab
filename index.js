@@ -1,14 +1,8 @@
-const express = require('express');
-const db = require ('./data/db');
+const server = require('./server');
 
 
 
-const server = express();
-server.use(express.json());
-server.get("/", (req, res) => {
-    res.send('hello sam')
-})
 
 server.listen(5000, () => {
-    console.log('\n*** Server Running on http://localhost:4000 ***\n');
+    console.log('\n*** Server Running on http://localhost:5000 ***\n');
 });
